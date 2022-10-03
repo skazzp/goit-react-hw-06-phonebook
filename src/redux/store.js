@@ -1,4 +1,8 @@
-import { current, configureStore, createSlice } from '@reduxjs/toolkit';
+import {
+  // current,
+  configureStore,
+  createSlice,
+} from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -28,7 +32,7 @@ const contactsSlice = createSlice({
       state.data.push(action.payload);
     },
     removeContact(state, action) {
-      console.log(current(state));
+      // console.log(current(state));
       state.data = state.data.filter(elem => elem.id !== action.payload);
       // return state.data.filter(elem => elem.id !== action.payload); ???
     },
