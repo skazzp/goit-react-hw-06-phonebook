@@ -1,12 +1,24 @@
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import css from './ContactForm.module.css';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/store';
 
-const ContactsForm = ({ saveContacts, contacts }) => {
+const ContactsForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const dispatch = useDispatch();
+  const handleFormSubmit = event => {
+    event.preventDefault();
+    const contact = {
+      name,
+      number,
+      id: nanoid(),
+    };
+    dispatch(addContact(contact));
+    resetForm();
+  };
   const handleChange = event => {
     if (event.target.name === 'name') setName(() => event.target.value);
     if (event.target.name === 'number') setNumber(() => event.target.value);
@@ -18,19 +30,6 @@ const ContactsForm = ({ saveContacts, contacts }) => {
     setNumber(() => {
       return '';
     });
-  };
-  const handleFormSubmit = event => {
-    event.preventDefault();
-    const contact = {
-      name,
-      number,
-      id: nanoid(),
-    };
-    if (contacts.filter(elem => elem.name === name).length) {
-      return alert(`${name} is already in contacts!`);
-    }
-    saveContacts(contact);
-    resetForm();
   };
 
   return (
@@ -67,13 +66,3 @@ const ContactsForm = ({ saveContacts, contacts }) => {
 };
 
 export default ContactsForm;
-
-ContactsForm.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ),
-};
