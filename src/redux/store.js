@@ -9,7 +9,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import storage from 'redux-persist/lib/storage';
 
 const contactsInitial = {
   data: [
@@ -30,7 +30,7 @@ const contactsSlice = createSlice({
     removeContact(state, action) {
       console.log(current(state));
       state.data = state.data.filter(elem => elem.id !== action.payload);
-      // return state.data.filter(elem => elem.id !== action.payload);
+      // return state.data.filter(elem => elem.id !== action.payload); ???
     },
   },
 });
@@ -46,12 +46,6 @@ const filterSlice = createSlice({
 });
 export const { addContact, removeContact } = contactsSlice.actions;
 export const { getFilter } = filterSlice.actions;
-// export const store = configureStore({
-//   reducer: {
-//     contacts: contactsSlice.reducer,
-//     filter: filterSlice.reducer,
-//   },
-// });
 
 const persistConfig = {
   key: 'contacts',
@@ -74,3 +68,10 @@ export const store = configureStore({
 });
 
 export let persistor = persistStore(store);
+
+// export const store = configureStore({
+//   reducer: {
+//     contacts: contactsSlice.reducer,
+//     filter: filterSlice.reducer,
+//   },
+// });

@@ -6,7 +6,6 @@ const ContactList = () => {
   const contacts = useSelector(state => state.contacts.data);
   const filterQuery = useSelector(state => state.filter);
   const dispatch = useDispatch();
-  // console.log(first)
   const filterContacts = (contacts, filterQuery) => {
     console.log(contacts, filterQuery);
     return filterQuery
@@ -16,7 +15,6 @@ const ContactList = () => {
       : contacts;
   };
   const filteredContacts = filterContacts(contacts, filterQuery);
-  // console.log(filteredContacts);
   return (
     <ul className={css.list}>
       {filteredContacts.map(contact => {
@@ -27,7 +25,6 @@ const ContactList = () => {
             <button
               type="button"
               onClick={() => {
-                // console.log(contacts);
                 dispatch(removeContact(contact.id));
               }}
             >
